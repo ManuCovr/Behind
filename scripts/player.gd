@@ -12,11 +12,13 @@ var jump_buffer : bool = false
 var has_double_jumped : bool = false
 var animation_locked: bool = false
 var direction : Vector2 = Vector2.ZERO
+var was_on_air : bool = false
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		was_on_air = true
 	else:
 		has_double_jumped = false
 	if Input.is_action_just_pressed("jump"):
@@ -45,8 +47,12 @@ func _physics_process(delta: float) -> void:
 func jump():
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			sprite.play("jump_start")
+			#animation_locked = true
 		elif not has_double_jumped:
 			velocity.y = double_jump_velocity
+			sprite.play("jump_start")
+			#animation_locked = true
 			has_double_jumped = true
 		#buffer jump
 		else:
@@ -70,4 +76,3 @@ func update_facing_direction():
 		marker_2d.scale.x=1
 	if direction.x < 0:
 		marker_2d.scale.x=-1
-		

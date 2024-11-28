@@ -2638,7 +2638,7 @@ tile_set = SubResource("TileSet_pex30")
 
 [node name="Player" parent="." instance=ExtResource("1_g31g5")]
 z_index = 5
-position = Vector2(-1, 0)
+position = Vector2(-1, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -32)
