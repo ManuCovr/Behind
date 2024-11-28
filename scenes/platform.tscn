@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv1vff4gbi0na"]
+
+[ext_resource type="Texture2D" uid="uid://b6qsy1vus816f" path="res://art/tileset/DARK Edition Tileset No background.png" id="1_q6gsx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybpru"]
+size = Vector2(36, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k0wbp"]
+polygon = PackedVector2Array(-16, -8, 16, -8, 16, 0, 15, 0, 15, 2, 14, 2, 14, 6, 13, 6, 13, 7, 10, 7, 10, 8, -10, 8, -10, 7, -13, 7, -13, 6, -14, 6, -14, 2, -15, 2, -15, 0, -16, 0)
+
+[sub_resource type="Gradient" id="Gradient_v75ab"]
+offsets = PackedFloat32Array(0, 0.731707)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k86wd"]
+gradient = SubResource("Gradient_v75ab")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_dwksq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.6]
+}
+
+[sub_resource type="Animation" id="Animation_8efyf"]
+resource_name = "breathing"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.7, 0.75]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tw6mf"]
+_data = {
+"RESET": SubResource("Animation_dwksq"),
+"breathing": SubResource("Animation_8efyf")
+}
+
+[node name="Platform" type="AnimatableBody2D"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 15)
+texture = ExtResource("1_q6gsx")
+flip_v = true
+region_enabled = true
+region_rect = Rect2(80, 16, 17, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q6gsx")
+region_enabled = true
+region_rect = Rect2(0, 240, 32, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ybpru")
+one_way_collision = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_k0wbp")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(0, 15)
+energy = 1.38
+texture = SubResource("GradientTexture2D_k86wd")
+texture_scale = 0.6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D3"]
+libraries = {
+"": SubResource("AnimationLibrary_tw6mf")
+}
+autoplay = "breathing"
