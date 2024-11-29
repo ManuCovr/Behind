@@ -23,8 +23,8 @@ var direction : Vector2 = Vector2.ZERO
 var was_on_air : bool = false
 
 
-const dashspeed = 500
-const dashlenght = .1
+const dashspeed = 420
+const dashlenght = 0.15
 
 
 func _physics_process(delta: float) -> void:
@@ -48,7 +48,8 @@ func _physics_process(delta: float) -> void:
 	# Wall Slide
 	if is_on_wall_only() and !Input.is_action_just_pressed("jump") and !doWallJump:
 		wall_slide(delta)
-	if Input.is_action_just_pressed("dash") and !dash.is_dashing():
+	direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
+	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and direction.x != 0:
 		dash.start_dash(dashlenght)
 		velocity.x = (direction.x if direction.x != 0 else marker_2d.scale.x) * dashspeed
 	if dash.is_dashing():

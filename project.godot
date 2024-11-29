@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Behind"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale=0.55
 
 [input]
 
@@ -60,3 +62,4 @@ dash={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+viewport/hdr_2d=true
