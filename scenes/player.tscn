@@ -1,7 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://dk0ov7rhpcuie"]
+[gd_scene load_steps=47 format=3 uid="uid://dk0ov7rhpcuie"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_5xfks"]
 [ext_resource type="Texture2D" uid="uid://dw2bdacl2f6ao" path="res://art/player/Sci-fi Samurai with Spear 146x33.png" id="2_irx2x"]
+[ext_resource type="Texture2D" uid="uid://c3xj0gmxydyhw" path="res://art/player/wallslide.png" id="3_8nkgn"]
+[ext_resource type="PackedScene" uid="uid://bcw3d7btyowyk" path="res://scenes/dash.tscn" id="4_ywkaa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nl8f"]
 atlas = ExtResource("2_irx2x")
@@ -159,6 +161,10 @@ region = Rect2(876, 33, 146, 33)
 atlas = ExtResource("2_irx2x")
 region = Rect2(1022, 33, 146, 33)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0mi8"]
+atlas = ExtResource("3_8nkgn")
+region = Rect2(0, 0, 146, 33)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_toli7"]
 animations = [{
 "frames": [{
@@ -302,11 +308,19 @@ animations = [{
 "loop": false,
 "name": &"run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0mi8")
+}],
+"loop": false,
+"name": &"wallslide",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0b8g5"]
 radius = 4.0
-height = 16.0
+height = 20.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -319,21 +333,27 @@ position = Vector2(0, -8)
 position = Vector2(-62, -25.75)
 scale = Vector2(1, 1.02273)
 sprite_frames = SubResource("SpriteFrames_toli7")
-animation = &"jump_air"
+animation = &"idle"
 autoplay = "idle"
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_0b8g5")
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.15
 one_shot = true
 
 [node name="WallJumpTimer" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="Dash" parent="." instance=ExtResource("4_ywkaa")]
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
