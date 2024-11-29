@@ -306,6 +306,10 @@ one_shot = true
 
 [node name="Dash" parent="." instance=ExtResource("4_ywkaa")]
 
+[node name="Save" type="Marker2D" parent="."]
+z_index = 1
+position = Vector2(0, -11)
+
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="WallJumpTimer" to="." method="_on_wall_jump_timer_timeout"]
