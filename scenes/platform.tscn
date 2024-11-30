@@ -57,6 +57,7 @@ _data = {
 }
 
 [node name="Platform" type="AnimatableBody2D"]
+collision_layer = 5
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(0, 15)

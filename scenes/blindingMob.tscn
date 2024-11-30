@@ -120,8 +120,8 @@ radius = 63.5177
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_curyl"]
 size = Vector2(9, 5.98438)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_appnc"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytct5"]
+size = Vector2(9, 6)
 
 [node name="Blinder" type="CharacterBody2D"]
 collision_layer = 2
@@ -157,8 +157,8 @@ debug_color = Color(0.7, 0, 0, 0.42)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -3)
-shape = SubResource("CircleShape2D_appnc")
+position = Vector2(0.5, -3)
+shape = SubResource("RectangleShape2D_ytct5")
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

@@ -273,8 +273,9 @@ animations = [{
 radius = 4.0
 height = 20.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6u4og"]
-size = Vector2(21, 23)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_csav5"]
+radius = 6.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 6
@@ -316,7 +317,7 @@ script = ExtResource("9_j73ts")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -11)
-shape = SubResource("RectangleShape2D_6u4og")
+shape = SubResource("CapsuleShape2D_csav5")
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
