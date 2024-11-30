@@ -22,8 +22,6 @@ var jump_buffer : bool = false
 var animation_locked: bool = false
 var direction : Vector2 = Vector2.ZERO
 var was_on_air : bool = false
-var restore_point: Vector2 = Vector2.ZERO
-var has_restore_point: bool = false
 
 const acc = 600
 const dashspeed = 420
@@ -66,13 +64,6 @@ func _physics_process(delta: float) -> void:
 
 	# Move and Slide
 	var was_on_floor = is_on_floor()
-	# Save the current position when pressing 'E'
-	if Input.is_action_just_pressed("save"):
-		save_restore_point()
-
-	# Return to the saved position when pressing 'R'
-	if Input.is_action_just_pressed("restore"):
-		return_to_restore_point()
 	
 	move_and_slide()
 	update_animation()
@@ -149,15 +140,3 @@ func update_facing_direction():
 		marker_2d.scale.x = 1
 	elif direction.x < 0:
 		marker_2d.scale.x = -1
-		
-func save_restore_point():
-	restore_point = global_position
-	has_restore_point = true
-	save.global_position = restore_point
-	save.visible = true
-
-# Function to return to the restore point
-func return_to_restore_point():
-	if has_restore_point:
-		global_position = restore_point
-		save.visible = false

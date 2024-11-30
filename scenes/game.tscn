@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://bv5yevi1l1803"]
+[gd_scene load_steps=51 format=4 uid="uid://bv5yevi1l1803"]
 
 [ext_resource type="PackedScene" uid="uid://dk0ov7rhpcuie" path="res://scenes/player.tscn" id="1_g31g5"]
 [ext_resource type="Texture2D" uid="uid://chu5w7s3880fw" path="res://art/backgrounds/background.png" id="1_lgd7l"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bnar1vwmt3mgd" path="res://art/backgrounds/fog.png" id="12_57kf1"]
 [ext_resource type="Texture2D" uid="uid://1vagydv7xjmk" path="res://art/tileset/Tileset.png" id="12_wskut"]
 [ext_resource type="Texture2D" uid="uid://cswnu386akc8c" path="res://art/backgrounds/fogin front.png" id="13_gbble"]
+[ext_resource type="PackedScene" uid="uid://pxe2ayuvd6t5" path="res://scenes/blindingMob.tscn" id="16_yq3lp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uth40"]
 texture = ExtResource("1_lgd7l")
@@ -2841,3 +2842,8 @@ theme_override_font_sizes/font_size = 8
 text = "haha softlocked"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Mobs" type="Node" parent="."]
+
+[node name="Blinder" parent="Mobs" instance=ExtResource("16_yq3lp")]
+position = Vector2(1093, 0)
