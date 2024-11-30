@@ -6,14 +6,15 @@ extends CharacterBody2D
 @export var wall_slide_speed : float = 1400
 @export var run_accel = 1000
 @export var gravity_multiplyer : float = 1.5
-
+const BOUNCE_VELOCITY = -200
 
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var sprite: AnimatedSprite2D = $Marker2D/AnimatedSprite2D
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var dash: Node2D = $Dash
-@onready var save: Marker2D = $Save
+@onready var bounce_raycasts = $Bounce
+
 
 var can_jump : bool = true
 var has_wall_jumped : bool = false
@@ -33,7 +34,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravity_multiplyer
 		was_on_air = true
-
 	# Handle Jumping
 	if Input.is_action_just_pressed("jump"):
 		if is_on_wall_only() and !has_wall_jumped:

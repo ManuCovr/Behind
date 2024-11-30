@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dk0ov7rhpcuie"]
+[gd_scene load_steps=46 format=3 uid="uid://dk0ov7rhpcuie"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_5xfks"]
 [ext_resource type="Texture2D" uid="uid://5tsh4k0e1kfa" path="res://art/player/my sheet/idle.png" id="2_gs8ex"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bcw3d7btyowyk" path="res://scenes/dash.tscn" id="4_ywkaa"]
 [ext_resource type="Texture2D" uid="uid://b20bs8ls8uk7y" path="res://art/player/my sheet/run.png" id="6_6r7fs"]
 [ext_resource type="Texture2D" uid="uid://df8x7ug1dd8ce" path="res://art/player/wallslide-1.png.png" id="7_14d0s"]
+[ext_resource type="Script" path="res://scripts/hitbox.gd" id="9_j73ts"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dyqtt"]
 atlas = ExtResource("2_gs8ex")
@@ -272,8 +273,11 @@ animations = [{
 radius = 4.0
 height = 20.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6u4og"]
+size = Vector2(21, 23)
+
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 3
+collision_mask = 6
 script = ExtResource("1_5xfks")
 RunSpeed = 100.0
 
@@ -306,9 +310,13 @@ one_shot = true
 
 [node name="Dash" parent="." instance=ExtResource("4_ywkaa")]
 
-[node name="Save" type="Marker2D" parent="."]
-z_index = 1
+[node name="hitbox" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("9_j73ts")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_6u4og")
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

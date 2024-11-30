@@ -68,6 +68,12 @@ restore={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="mobs"
+2d_physics/layer_3="world"
+
 [physics]
 
 2d/default_gravity=500.0

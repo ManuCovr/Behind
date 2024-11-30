@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://pxe2ayuvd6t5"]
+[gd_scene load_steps=22 format=3 uid="uid://pxe2ayuvd6t5"]
 
 [ext_resource type="Script" path="res://scripts/blinding_mob.gd" id="1_1gwn5"]
 [ext_resource type="Texture2D" uid="uid://owsp6he8i0lh" path="res://art/enemies/Blinding Spider/deah 16x16.png" id="1_qlb6x"]
@@ -118,9 +118,14 @@ animations = [{
 radius = 63.5177
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_curyl"]
-size = Vector2(10, 7)
+size = Vector2(9, 5.98438)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_appnc"]
+radius = 6.0
 
 [node name="Blinder" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_1gwn5")
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -129,25 +134,34 @@ position = Vector2(0, -3)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(4, -5)
 sprite_frames = SubResource("SpriteFrames_j3q11")
-animation = &"walk"
+animation = &"death"
+autoplay = "idle"
 frame = 5
 frame_progress = 1.0
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 position = Vector2(0.5, -3.5)
 shape = SubResource("CircleShape2D_2bkay")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -3.5)
+[node name="ChaseTimer" type="Timer" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -3.00781)
 shape = SubResource("RectangleShape2D_curyl")
 debug_color = Color(0.7, 0, 0, 0.42)
 
-[node name="ChaseTimer" type="Timer" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_appnc")
+
+[connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
