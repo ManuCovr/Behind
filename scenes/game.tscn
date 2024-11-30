@@ -2847,3 +2847,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Blinder" parent="Mobs" instance=ExtResource("16_yq3lp")]
 position = Vector2(1093, 0)
+
+[node name="Blinder2" parent="Mobs" instance=ExtResource("16_yq3lp")]
+position = Vector2(1078, 0)
