@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5vy2w66y27sq"
+path="res://.godot/imported/FootstepsDryBeachTwigs4.wav-d8c0383ceea8712fa40fba690c90c43d.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Footsteps/FootstepsDryBeachTwigs4.wav"
+dest_files=["res://.godot/imported/FootstepsDryBeachTwigs4.wav-d8c0383ceea8712fa40fba690c90c43d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dn4r5ew2x8j7p"
+path="res://.godot/imported/FootstepsStoneDirt1.wav-058fbca819741af71ada9ca05764e3be.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Footsteps/FootstepsStoneDirt1.wav"
+dest_files=["res://.godot/imported/FootstepsStoneDirt1.wav-058fbca819741af71ada9ca05764e3be.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

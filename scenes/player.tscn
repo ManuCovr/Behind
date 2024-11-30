@@ -284,7 +284,7 @@ position = Vector2(0, -8)
 position = Vector2(-62, -25.75)
 scale = Vector2(1, 1.02273)
 sprite_frames = SubResource("SpriteFrames_toli7")
-animation = &"wallslide"
+animation = &"run"
 autoplay = "idle"
 centered = false
 
@@ -301,7 +301,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true
 
 [node name="Dash" parent="." instance=ExtResource("4_ywkaa")]
@@ -311,5 +311,6 @@ z_index = 1
 position = Vector2(0, -11)
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
 [connection signal="timeout" from="WallJumpTimer" to="." method="_on_wall_jump_timer_timeout"]

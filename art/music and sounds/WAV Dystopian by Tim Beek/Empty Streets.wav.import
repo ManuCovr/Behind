@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bgl018wc3noud"
+path="res://.godot/imported/Empty Streets.wav-38b625071552007e1bbf4d725f161ae9.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/WAV Dystopian by Tim Beek/Empty Streets.wav"
+dest_files=["res://.godot/imported/Empty Streets.wav-38b625071552007e1bbf4d725f161ae9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b77uh8313jf56"
+path="res://.godot/imported/SwitchButton2_Off.wav-7367706058895c2a381888931b53db57.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/SwitchButton2_Off.wav"
+dest_files=["res://.godot/imported/SwitchButton2_Off.wav-7367706058895c2a381888931b53db57.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

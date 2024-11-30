@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bqhdu5g55myft"
+path="res://.godot/imported/BeeBuzz.wav-b4c6fb73b9724391f56ab194125dcadd.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/BeeBuzz.wav"
+dest_files=["res://.godot/imported/BeeBuzz.wav-b4c6fb73b9724391f56ab194125dcadd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

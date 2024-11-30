@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://s4rgjyfmmx0r"
+path="res://.godot/imported/FootstepsConcrete4.wav-eeed3a7d64d360a1400be3553d7f1266.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Footsteps/FootstepsConcrete4.wav"
+dest_files=["res://.godot/imported/FootstepsConcrete4.wav-eeed3a7d64d360a1400be3553d7f1266.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

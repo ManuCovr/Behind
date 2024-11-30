@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cm6gju16mw5p8"
+path="res://.godot/imported/Gravelfall2.wav-1597809be529ff9a734574f2b75e6c43.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/Gravelfall2.wav"
+dest_files=["res://.godot/imported/Gravelfall2.wav-1597809be529ff9a734574f2b75e6c43.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

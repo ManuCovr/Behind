@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dgar4tjg7obv"
+path="res://.godot/imported/Rockfall3.wav-f2a63afc9fae2d0355cfe694fd4cacc8.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/Rockfall3.wav"
+dest_files=["res://.godot/imported/Rockfall3.wav-f2a63afc9fae2d0355cfe694fd4cacc8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

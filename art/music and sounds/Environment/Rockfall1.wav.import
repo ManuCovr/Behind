@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dtuffslfx2s5n"
+path="res://.godot/imported/Rockfall1.wav-fc2e8da87bd8bb4767b5f05d0c61411a.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/Rockfall1.wav"
+dest_files=["res://.godot/imported/Rockfall1.wav-fc2e8da87bd8bb4767b5f05d0c61411a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

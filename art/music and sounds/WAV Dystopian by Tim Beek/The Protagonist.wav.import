@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://nyayfct2gh1w"
+path="res://.godot/imported/The Protagonist.wav-72767ff55b70858aad2cc06138400b64.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/WAV Dystopian by Tim Beek/The Protagonist.wav"
+dest_files=["res://.godot/imported/The Protagonist.wav-72767ff55b70858aad2cc06138400b64.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

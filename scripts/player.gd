@@ -25,6 +25,7 @@ var was_on_air : bool = false
 var restore_point: Vector2 = Vector2.ZERO
 var has_restore_point: bool = false
 
+const acc = 600
 const dashspeed = 420
 const dashlenght = 0.15
 
@@ -59,9 +60,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 		if direction and !doWallJump:
-			velocity.x = direction.x * RunSpeed
+			velocity.x = clamp(velocity.x + direction.x * acc * delta, -RunSpeed, RunSpeed)
 		elif not doWallJump:
-			velocity.x = move_toward(velocity.x, RunSpeed * direction.x, run_accel * delta)
+			velocity.x = move_toward(velocity.x, 0, run_accel * delta)
 
 	# Move and Slide
 	var was_on_floor = is_on_floor()

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cjbc8njfduh8n"
+path="res://.godot/imported/BirdsCrowsDistantAmbienceLoop.wav-79ef8e6571ca5514cad019f1d14da420.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/BirdsCrowsDistantAmbienceLoop.wav"
+dest_files=["res://.godot/imported/BirdsCrowsDistantAmbienceLoop.wav-79ef8e6571ca5514cad019f1d14da420.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

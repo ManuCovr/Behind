@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bu8fe4n1baen"
+path="res://.godot/imported/FootstepsSlushSnow3.wav-bd56979145fbaacd5cc2b546e2df4260.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Footsteps/FootstepsSlushSnow3.wav"
+dest_files=["res://.godot/imported/FootstepsSlushSnow3.wav-bd56979145fbaacd5cc2b546e2df4260.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

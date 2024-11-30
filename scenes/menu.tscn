@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://caxas1rhnh5mj"]
+[gd_scene load_steps=10 format=3 uid="uid://caxas1rhnh5mj"]
 
 [ext_resource type="VideoStream" path="res://art/menu/5d5013cbcab7ddef4d74e5087bfcfe80.ogv" id="1_7lft2"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_fiqhr"]
-[ext_resource type="FontFile" uid="uid://cwi773dakccgf" path="res://art/´fonts/Renogare-Regular.otf" id="2_8sgnd"]
+[ext_resource type="FontFile" uid="uid://cwi773dakccgf" path="res://art/fonts/Renogare-Regular.otf" id="2_8sgnd"]
 [ext_resource type="Theme" uid="uid://t7heidau4wa0" path="res://themes/menu.tres" id="3_k720t"]
+[ext_resource type="AudioStream" uid="uid://3o4f6mqqm3tl" path="res://art/music and sounds/WAV Dystopian by Tim Beek/Surveillance.wav" id="5_v0bsi"]
 
 [sub_resource type="Animation" id="Animation_lw8gm"]
 length = 0.001
@@ -155,6 +156,12 @@ color = Color(0, 0, 0, 1)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ouipu")
 
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_v0bsi")
+autoplay = true
+bus = &"Music"
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="animation_finished" from="Transition" to="." method="_on_transition_animation_finished"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

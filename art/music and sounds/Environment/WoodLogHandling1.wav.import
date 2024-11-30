@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b34ckge2742i4"
+path="res://.godot/imported/WoodLogHandling1.wav-bbcbf90ad665458a7e48e756563d459b.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/Environment/WoodLogHandling1.wav"
+dest_files=["res://.godot/imported/WoodLogHandling1.wav-bbcbf90ad665458a7e48e756563d459b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
