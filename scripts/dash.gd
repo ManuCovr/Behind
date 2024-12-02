@@ -1,9 +1,12 @@
 extends Node2D
 
 @onready var timer: Timer = $DashTimer
-const dash_delay = 1
+const dash_delay = 2
 var can_dash = true
+var player_ref : Node = null
 
+func set_player_reference(player: Node):
+	player_ref = player
 
 func start_dash(dur: float):
 	if can_dash:

@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var detection_area: Area2D = $detection_area
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var collision: CollisionShape2D = $CollisionShape2D2
-
+const Dash = preload("res://scripts/dash.gd")
 
 @export var speed = 40
 @export var gravity = 500
@@ -81,12 +81,21 @@ func _on_hurtbox_area_entered(hitbox):
 			die()
 
 func die():
+	collision.set_deferred("disabled", true)
+	FrameFreeze(0.05, 0.5)
 	dead = true
 	velocity = Vector2.ZERO
 	sprite.play("death")
-	collision.set_deferred("disabled", true)
+	if is_instance_valid(player) and player.has_method("reset_dash"):
+		player.reset_dash()  # Call reset_dash function on the player
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "death":
 		queue_free()
+
+func FrameFreeze(timeScale, duration):
+	Engine.time_scale = timeScale
+	var timer = get_tree().create_timer(timeScale * duration)
+	await timer.timeout
+	Engine.time_scale = 1 

@@ -21,6 +21,7 @@ buses/default_bus_layout="res://bus/default_bus_layout.tres"
 
 [display]
 
+window/size/mode=4
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale=0.55

@@ -1,32 +1,32 @@
 [gd_scene load_steps=22 format=3 uid="uid://pxe2ayuvd6t5"]
 
 [ext_resource type="Script" path="res://scripts/blinding_mob.gd" id="1_1gwn5"]
-[ext_resource type="Texture2D" uid="uid://owsp6he8i0lh" path="res://art/enemies/Blinding Spider/deah 16x16.png" id="1_qlb6x"]
+[ext_resource type="Texture2D" uid="uid://ctyqnmyyvpvbo" path="res://art/enemies/Blinding Spider/deah 16x16-1.png.png" id="2_pbwmc"]
 [ext_resource type="Texture2D" uid="uid://cidqfcyl6w5y6" path="res://art/enemies/Blinding Spider/static idle.png" id="2_t2bt6"]
 [ext_resource type="Texture2D" uid="uid://cxwe0risnrxk2" path="res://art/enemies/Blinding Spider/walk 16x16.png" id="3_08ywl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f05vx"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5ci3"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7cws6"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6wrp"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mnhlk"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulum"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uoed8"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dn0ja"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bj5td"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxdca"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 64, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xu1n"]
-atlas = ExtResource("1_qlb6x")
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmona"]
+atlas = ExtResource("2_pbwmc")
 region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y257e"]
@@ -61,22 +61,22 @@ region = Rect2(0, 80, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f05vx")
+"texture": SubResource("AtlasTexture_j5ci3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7cws6")
+"texture": SubResource("AtlasTexture_r6wrp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mnhlk")
+"texture": SubResource("AtlasTexture_fulum")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uoed8")
+"texture": SubResource("AtlasTexture_dn0ja")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bj5td")
+"texture": SubResource("AtlasTexture_jxdca")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2xu1n")
+"texture": SubResource("AtlasTexture_lmona")
 }],
 "loop": false,
 "name": &"death",
@@ -121,11 +121,11 @@ radius = 63.5177
 size = Vector2(9, 5.98438)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytct5"]
-size = Vector2(9, 6)
+size = Vector2(19, 6)
 
 [node name="Blinder" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 6
 script = ExtResource("1_1gwn5")
 
 [node name="Marker2D" type="Marker2D" parent="."]
@@ -155,6 +155,7 @@ debug_color = Color(0.7, 0, 0, 0.42)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, -3)
