@@ -6,7 +6,6 @@ extends CharacterBody2D
 @export var wall_slide_speed : float = 1400
 @export var run_accel = 1000
 @export var gravity_multiplyer : float = 1.5
-const BOUNCE_VELOCITY = -200
 
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var marker_2d: Marker2D = $Marker2D
