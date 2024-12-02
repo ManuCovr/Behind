@@ -1,9 +1,10 @@
-[gd_scene load_steps=51 format=3 uid="uid://dk0ov7rhpcuie"]
+[gd_scene load_steps=57 format=3 uid="uid://dk0ov7rhpcuie"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_5xfks"]
 [ext_resource type="Texture2D" uid="uid://5tsh4k0e1kfa" path="res://art/player/my sheet/idle.png" id="2_gs8ex"]
 [ext_resource type="PackedScene" uid="uid://btcve6hxsy3p0" path="res://scenes/dash_sprite.tscn" id="2_wnsyr"]
 [ext_resource type="Texture2D" uid="uid://wa8hwritj4ko" path="res://art/player/my sheet/jump_air.png" id="3_qaav5"]
+[ext_resource type="Texture2D" uid="uid://tfbykhpgdd88" path="res://art/player/my sheet/tile000.png" id="4_1aed4"]
 [ext_resource type="Texture2D" uid="uid://b1bguiyqe4plm" path="res://art/player/my sheet/jump_air2.png" id="4_jrr07"]
 [ext_resource type="Texture2D" uid="uid://doj1ka24u8uci" path="res://art/player/my sheet/jump_start.png" id="4_sugh3"]
 [ext_resource type="PackedScene" uid="uid://bcw3d7btyowyk" path="res://scenes/dash.tscn" id="4_ywkaa"]
@@ -11,6 +12,72 @@
 [ext_resource type="Texture2D" uid="uid://df8x7ug1dd8ce" path="res://art/player/wallslide-1.png.png" id="7_14d0s"]
 [ext_resource type="Script" path="res://scripts/hitbox.gd" id="9_j73ts"]
 [ext_resource type="Texture2D" uid="uid://c23xs7b73cdct" path="res://art/particles/pixil-frame-0(2).png" id="10_mdow2"]
+
+[sub_resource type="Curve" id="Curve_875jv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.45145, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dsijn"]
+curve = SubResource("Curve_875jv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_17chg"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -180.0
+angle_max = -180.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 19.0
+initial_velocity_max = 19.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_dsijn")
+
+[sub_resource type="Shader" id="Shader_c6m7a"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+uniform int particles_anim_h_frames;
+uniform int particles_anim_v_frames;
+uniform bool particles_anim_loop;
+
+void vertex() {
+	float h_frames = float(particles_anim_h_frames);
+	float v_frames = float(particles_anim_v_frames);
+	VERTEX.xy /= vec2(h_frames, v_frames);
+	float particle_total_frames = float(particles_anim_h_frames * particles_anim_v_frames);
+	float particle_frame = floor(INSTANCE_CUSTOM.z * float(particle_total_frames));
+	if (!particles_anim_loop) {
+		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
+	} else {
+		particle_frame = mod(particle_frame, particle_total_frames);
+	}	
+	vec2 scale_uv = UV / vec2(h_frames, v_frames);
+	UV = scale_uv + vec2(
+		mod(particle_frame, h_frames) / h_frames, 
+		floor((particle_frame + 0.5) / h_frames) / v_frames);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g3ex"]
+shader = SubResource("Shader_c6m7a")
+shader_parameter/particles_anim_h_frames = 1
+shader_parameter/particles_anim_v_frames = 1
+shader_parameter/particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_f1qao"]
+_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g6lwh"]
+curve = SubResource("Curve_f1qao")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7pern"]
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_g6lwh")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dyqtt"]
 atlas = ExtResource("2_gs8ex")
@@ -279,31 +346,27 @@ height = 20.0
 radius = 6.0
 height = 24.0
 
-[sub_resource type="Curve" id="Curve_875jv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.45145, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_dsijn"]
-curve = SubResource("Curve_875jv")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_17chg"]
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 5.0
-angle_min = -180.0
-angle_max = -180.0
-direction = Vector3(0, 0, 0)
-spread = 180.0
-initial_velocity_min = 19.0
-initial_velocity_max = 19.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_dsijn")
-
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 4
 script = ExtResource("1_5xfks")
 RunSpeed = 100.0
 dash_sprite = ExtResource("2_wnsyr")
+
+[node name="dash_particles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -11)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_17chg")
+texture = ExtResource("10_mdow2")
+draw_order = 0
+
+[node name="GhostEffect" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_6g3ex")
+position = Vector2(4, -17)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_7pern")
+texture = ExtResource("4_1aed4")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -8)
@@ -342,14 +405,6 @@ script = ExtResource("9_j73ts")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_csav5")
-
-[node name="dash_particles" type="GPUParticles2D" parent="."]
-position = Vector2(0, -11)
-emitting = false
-amount = 300
-process_material = SubResource("ParticleProcessMaterial_17chg")
-texture = ExtResource("10_mdow2")
-draw_order = 0
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

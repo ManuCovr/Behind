@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var gravity_multiplyer : float = 1.5
 @export var dash_delay : float = 0.7
 
+@onready var ghost_effect: GPUParticles2D = $GhostEffect
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_particles: GPUParticles2D = $dash_particles
 @export var dash_sprite : PackedScene
@@ -58,6 +59,7 @@ func _physics_process(delta: float) -> void:
 	#direction.y = sign(Input.get_action_strength("down") - Input.get_action_strength("up"))
 	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and direction.x != 0 and dash.can_dash:
 		dash_particles.emitting = true
+		ghost_effect.emitting = true
 		dash.start_dash(dashlenght)
 		velocity.x = (direction.x if direction.x != 0 else marker_2d.scale.x) * dashspeed
 		dash.can_dash = false
@@ -68,6 +70,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 		dash_particles.emitting = false
+		ghost_effect.emitting = false
 		hitbox.disabled = true
 		if direction and !doWallJump:
 			velocity.x = clamp(velocity.x + direction.x * acc * delta, -RunSpeed, RunSpeed)
@@ -98,7 +101,8 @@ func _physics_process(delta: float) -> void:
 func _on_enemy_killed():
 	# Reset dash and allow a small window to dash again
 	dash.can_dash = true  # Allow re-dash
-	dash_particles.emitting = false  # Stop dash particles
+	dash_particles.emitting = false
+	ghost_effect.emitting = false  # Stop dash particles
 
 # Wall Jump Implementation
 func wall_jump():
@@ -160,8 +164,11 @@ func update_animation():
 func update_facing_direction():
 	if direction.x > 0:
 		marker_2d.scale.x = 1
+		ghost_effect.scale.x = 1
 	elif direction.x < 0:
 		marker_2d.scale.x = -1
+		ghost_effect.scale.x = -1
+
 		
 func FrameFreeze(timeScale, duration):
 	Engine.time_scale = timeScale
@@ -175,3 +182,4 @@ func reset_dash():
 	await redash.timeout
 	dash.can_dash = false
 	dash_particles.emitting = false
+	ghost_effect.emitting = false
