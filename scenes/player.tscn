@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c23xs7b73cdct" path="res://art/particles/pixil-frame-0(2).png" id="10_mdow2"]
 
 [sub_resource type="Curve" id="Curve_875jv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.45145, 0.0, 0, 0]
+_data = [Vector2(0.00576923, 0.546942), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.47937, -3.07048, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_dsijn"]
@@ -31,6 +31,8 @@ spread = 180.0
 initial_velocity_min = 19.0
 initial_velocity_max = 19.0
 gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.3
 scale_curve = SubResource("CurveTexture_dsijn")
 
 [sub_resource type="Shader" id="Shader_c6m7a"]
@@ -52,10 +54,10 @@ void vertex() {
 		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
 	} else {
 		particle_frame = mod(particle_frame, particle_total_frames);
-	}	
+	}
 	vec2 scale_uv = UV / vec2(h_frames, v_frames);
 	UV = scale_uv + vec2(
-		mod(particle_frame, h_frames) / h_frames, 
+		mod(particle_frame, h_frames) / h_frames,
 		floor((particle_frame + 0.5) / h_frames) / v_frames);
 }
 "
@@ -67,7 +69,7 @@ shader_parameter/particles_anim_v_frames = 1
 shader_parameter/particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_f1qao"]
-_data = [Vector2(0, 0.549451), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.440612), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_g6lwh"]
@@ -358,13 +360,15 @@ emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_17chg")
 texture = ExtResource("10_mdow2")
+lifetime = 0.4
 draw_order = 0
 
 [node name="GhostEffect" type="GPUParticles2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_6g3ex")
 position = Vector2(4, -17)
 emitting = false
-amount = 20
+amount = 100
 process_material = SubResource("ParticleProcessMaterial_7pern")
 texture = ExtResource("4_1aed4")
 
@@ -405,6 +409,8 @@ script = ExtResource("9_j73ts")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_csav5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

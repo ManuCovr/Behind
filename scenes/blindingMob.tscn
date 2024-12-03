@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://pxe2ayuvd6t5"]
+[gd_scene load_steps=25 format=3 uid="uid://pxe2ayuvd6t5"]
 
 [ext_resource type="Script" path="res://scripts/blinding_mob.gd" id="1_1gwn5"]
 [ext_resource type="Texture2D" uid="uid://ctyqnmyyvpvbo" path="res://art/enemies/Blinding Spider/deah 16x16-1.png.png" id="2_pbwmc"]
 [ext_resource type="Texture2D" uid="uid://cidqfcyl6w5y6" path="res://art/enemies/Blinding Spider/static idle.png" id="2_t2bt6"]
+[ext_resource type="PackedScene" uid="uid://dpu0euds8ylnj" path="res://scenes/death.tscn" id="2_uj6jn"]
 [ext_resource type="Texture2D" uid="uid://cxwe0risnrxk2" path="res://art/enemies/Blinding Spider/walk 16x16.png" id="3_08ywl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j5ci3"]
@@ -123,10 +124,20 @@ size = Vector2(9, 5.98438)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytct5"]
 size = Vector2(19, 6)
 
+[sub_resource type="Gradient" id="Gradient_ndldq"]
+offsets = PackedFloat32Array(0, 0.719298)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ja4b"]
+gradient = SubResource("Gradient_ndldq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Blinder" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 6
 script = ExtResource("1_1gwn5")
+deathParticle = ExtResource("2_uj6jn")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -3)
@@ -134,10 +145,8 @@ position = Vector2(0, -3)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
 position = Vector2(4, -5)
 sprite_frames = SubResource("SpriteFrames_j3q11")
-animation = &"death"
+animation = &"walk"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 2
@@ -160,6 +169,13 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0.5, -3)
 shape = SubResource("RectangleShape2D_ytct5")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(4.52193, -4.49549)
+scale = Vector2(0.148438, 0.148438)
+energy = 0.7
+texture = SubResource("GradientTexture2D_0ja4b")
+texture_scale = 1.4
 
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

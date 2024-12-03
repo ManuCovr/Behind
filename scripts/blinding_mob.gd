@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
-
+const DEATH = preload("res://scenes/death.tscn")
 @onready var chase_timer: Timer = $ChaseTimer
 @onready var sprite: AnimatedSprite2D = $Marker2D/AnimatedSprite2D
 @onready var detection_area: Area2D = $detection_area
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var collision: CollisionShape2D = $CollisionShape2D2
 const Dash = preload("res://scripts/dash.gd")
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
+@export var deathParticle : PackedScene
 @export var speed = 40
 @export var gravity = 500
 @export var chase_accel = 500
@@ -33,8 +35,10 @@ func _physics_process(delta: float) -> void:
 				# Flip the sprite based on direction
 			if direction_to_player > 0:
 				marker_2d.scale.x = 1  # Facing right
+				point_light_2d.offset.x = 0
 			elif direction_to_player < 0:
-				marker_2d.scale.x = -1  # Facing left
+				marker_2d.scale.x = -1 
+				point_light_2d.offset.x = -62
 			velocity.x = move_toward(velocity.x, direction_to_player * speed, chase_accel * delta)
 		else:
 		# Stop moving when not chasing
@@ -81,11 +85,16 @@ func _on_hurtbox_area_entered(hitbox):
 			die()
 
 func die():
-	collision.set_deferred("disabled", true)
-	FrameFreeze(0.05, 0.5)
 	dead = true
+	collision.set_deferred("disabled", true)
 	velocity = Vector2.ZERO
 	sprite.play("death")
+	var particle_instance = deathParticle.instantiate()  # Use instantiate() in Godot 4
+	particle_instance.global_position = global_position  # Set particle position
+	particle_instance.rotation = global_rotation  # Match rotation (if needed)
+	if particle_instance is GPUParticles2D:
+		particle_instance.emitting = true
+	get_tree().current_scene.add_child(particle_instance)  # Add particle to the scene
 	if is_instance_valid(player) and player.has_method("reset_dash"):
 		player.reset_dash()  # Call reset_dash function on the player
 
@@ -93,9 +102,3 @@ func die():
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "death":
 		queue_free()
-
-func FrameFreeze(timeScale, duration):
-	Engine.time_scale = timeScale
-	var timer = get_tree().create_timer(timeScale * duration)
-	await timer.timeout
-	Engine.time_scale = 1 

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b6qsy1vus816f" path="res://art/tileset/DARK Edition Tileset No background.png" id="1_q6gsx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybpru"]
-size = Vector2(36, 16)
+size = Vector2(32, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k0wbp"]
 polygon = PackedVector2Array(-16, -8, 16, -8, 16, 0, 15, 0, 15, 2, 14, 2, 14, 6, 13, 6, 13, 7, 10, 7, 10, 8, -10, 8, -10, 7, -13, 7, -13, 6, -14, 6, -14, 2, -15, 2, -15, 0, -16, 0)
@@ -72,8 +72,8 @@ region_enabled = true
 region_rect = Rect2(0, 240, 32, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_ybpru")
-one_way_collision = true
 debug_color = Color(0.448437, 0.7, 0, 0.42)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]

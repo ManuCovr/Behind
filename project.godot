@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout="res://bus/default_bus_layout.tres"
 
+[autoload]
+
+HitStopManager="*res://scripts/HitStopManager.gd"
+
 [display]
 
 window/size/mode=4

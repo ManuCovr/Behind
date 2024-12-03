@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var gravity_multiplyer : float = 1.5
 @export var dash_delay : float = 0.7
 
+@onready var camera_2d: Camera2D = $Camera2D
 @onready var ghost_effect: GPUParticles2D = $GhostEffect
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_particles: GPUParticles2D = $dash_particles
@@ -63,8 +64,8 @@ func _physics_process(delta: float) -> void:
 		dash.start_dash(dashlenght)
 		velocity.x = (direction.x if direction.x != 0 else marker_2d.scale.x) * dashspeed
 		dash.can_dash = false
+		camera_2d.add_trauma(0.2) 
 	if dash.is_dashing():
-		#FrameFreeze(0.05, 1.0)
 		hitbox.disabled = false
 		velocity.x = sign(velocity.x) * dashspeed
 	else:
@@ -169,12 +170,6 @@ func update_facing_direction():
 		marker_2d.scale.x = -1
 		ghost_effect.scale.x = -1
 
-		
-func FrameFreeze(timeScale, duration):
-	Engine.time_scale = timeScale
-	var timer = get_tree().create_timer(timeScale * duration)
-	await timer.timeout
-	Engine.time_scale = 1 
 
 func reset_dash():
 	dash.can_dash = true
