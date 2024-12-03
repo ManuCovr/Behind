@@ -74,6 +74,7 @@ region_rect = Rect2(0, 240, 32, 16)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_ybpru")
+one_way_collision_margin = 32.0
 debug_color = Color(0.448437, 0.7, 0, 0.42)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]

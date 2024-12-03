@@ -1,9 +1,9 @@
 extends AnimatableBody2D
 
-@onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var player: CharacterBody2D = $"../../Player"
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var area_2d: Area2D = $Area2D
+@onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var player_on_top: bool = false
 
