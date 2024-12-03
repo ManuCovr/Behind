@@ -1,7 +1,7 @@
 extends Camera2D
 
 @export var decay : float = 0.8
-@export var max_offset : Vector2 = Vector2(100, 75)
+@export var max_offset : Vector2 = Vector2(80, 60)
 @export var max_roll : float = 0.1
 @export var follow_node : Node2D
 @export var base_offset: Vector2 = Vector2(0, -21)

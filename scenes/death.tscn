@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpu0euds8ylnj"]
+[gd_scene load_steps=7 format=3 uid="uid://dpu0euds8ylnj"]
+
+[ext_resource type="Script" path="res://scripts/death.gd" id="1_0htow"]
 
 [sub_resource type="Gradient" id="Gradient_mos1n"]
 offsets = PackedFloat32Array(0.45977, 1)
@@ -26,10 +28,13 @@ scale_curve = SubResource("CurveTexture_3rhke")
 color_ramp = SubResource("GradientTexture1D_ve02r")
 
 [node name="Node2D" type="GPUParticles2D"]
-self_modulate = Color(30, 30, 30, 1)
+self_modulate = Color(2, 2, 2, 1)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_uo8ms")
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
+script = ExtResource("1_0htow")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

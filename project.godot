@@ -13,6 +13,7 @@ config_version=5
 config/name="Behind"
 run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [audio]
@@ -29,6 +30,14 @@ window/size/mode=4
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale=0.55
+
+[editor]
+
+movie_writer/fps=30
+
+[gui]
+
+theme/fps=60
 
 [input]
 

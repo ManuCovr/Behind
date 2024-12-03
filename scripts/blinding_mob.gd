@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const DEATH = preload("res://scenes/death.tscn")
+
 @onready var chase_timer: Timer = $ChaseTimer
 @onready var sprite: AnimatedSprite2D = $Marker2D/AnimatedSprite2D
 @onready var detection_area: Area2D = $detection_area
