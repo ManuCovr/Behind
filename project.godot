@@ -24,6 +24,7 @@ buses/default_bus_layout="res://bus/default_bus_layout.tres"
 
 HitStopManager="*res://scripts/HitStopManager.gd"
 DialogManager="*res://singleton/DialogManager.gd"
+SceneManager="*res://singleton/SceneManager.gd"
 
 [display]
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=59 format=4 uid="uid://rt4tniy1jrn3"]
+[gd_scene load_steps=72 format=4 uid="uid://rt4tniy1jrn3"]
 
+[ext_resource type="Script" path="res://Levels/Scripts/level_1.gd" id="1_16yvr"]
 [ext_resource type="Texture2D" uid="uid://chu5w7s3880fw" path="res://art/backgrounds/background.png" id="1_ow3ck"]
 [ext_resource type="Texture2D" uid="uid://b6qsy1vus816f" path="res://art/tileset/DARK Edition Tileset No background.png" id="2_lvorx"]
 [ext_resource type="PackedScene" uid="uid://bv1vff4gbi0na" path="res://scenes/platform.tscn" id="2_pu7ny"]
@@ -18,6 +19,9 @@
 [ext_resource type="Script" path="res://scripts/platform.gd" id="16_15lrc"]
 [ext_resource type="PackedScene" uid="uid://chv83lkbxuac5" path="res://scenes/kill_zone.tscn" id="17_jv0sb"]
 [ext_resource type="Script" path="res://Levels/Scripts/level_won1.gd" id="18_jdsr2"]
+[ext_resource type="Script" path="res://scripts/tutorial_guy.gd" id="19_duqk5"]
+[ext_resource type="Texture2D" uid="uid://r4h4hsmd63s4" path="res://art/enemies/Hell Bot DARK/idle 92x36.png" id="20_v1t7p"]
+[ext_resource type="PackedScene" uid="uid://57ko1iqeadw2" path="res://dialogues/dialogue.tscn" id="21_th8rk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uth40"]
 texture = ExtResource("1_ow3ck")
@@ -2637,8 +2641,65 @@ _data = {
 "fade_out": SubResource("Animation_rsunj")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiadm"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 0, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0t2o"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 36, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o7sr"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 72, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04ldj"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 108, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylg3g"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 144, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch5k0"]
+atlas = ExtResource("20_v1t7p")
+region = Rect2(0, 180, 92, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trcxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yiadm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0t2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o7sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04ldj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylg3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ch5k0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjo5m"]
+size = Vector2(16, 25.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnm2l"]
+radius = 65.0077
+
 [node name="Level1" type="Node2D"]
 process_mode = 1
+script = ExtResource("1_16yvr")
 
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color(0.874, 0.9154, 0.92, 1)
@@ -2788,6 +2849,43 @@ offset_bottom = -308.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
+
+[node name="TutorialGuy" type="CharacterBody2D" parent="."]
+position = Vector2(-61, 0)
+collision_layer = 8
+script = ExtResource("19_duqk5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TutorialGuy"]
+position = Vector2(25, -17)
+sprite_frames = SubResource("SpriteFrames_trcxj")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.954166
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialGuy"]
+position = Vector2(0, -12.625)
+shape = SubResource("RectangleShape2D_hjo5m")
+
+[node name="Area2D" type="Area2D" parent="TutorialGuy"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TutorialGuy/Area2D"]
+shape = SubResource("CircleShape2D_cnm2l")
+
+[node name="Dialogue" parent="TutorialGuy" instance=ExtResource("21_th8rk")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -41.0
+offset_right = -49.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+d_file = "res://dialogues/json/TutChat.json"
 
 [connection signal="body_entered" from="Platform Node/Platform/Area2D" to="Platform Node/Platform" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Platform Node/Platform/Area2D" to="Platform Node/Platform" method="_on_area_2d_body_exited"]

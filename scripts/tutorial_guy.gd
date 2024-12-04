@@ -23,8 +23,37 @@ const lines: Array[String] = [
 	left and right. OH AND SPACE TO JUMP",
 ]
 
+
+const lines2: Array[String] = [
+	"You made it!",
+	"Really thought you
+	were gonna... You know...",
+	"Anyways!",
+	"...",
+	"You never told me your name.",
+	"...",
+	"Kodai...",
+	"*could it be...?*",
+	"Same thing as last time,
+	just jump."
+]
+
+var current_scene_name = ""  # Set this explicitly for each scene
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact"):
-		if area_2d.get_overlapping_bodies().size() > 0:
-			DialogManager.start_dialog(dialogue.position, lines)
-			
+	if event.is_action_pressed("interact") and area_2d.get_overlapping_bodies().size() > 0:
+		var selected_lines: Array[String]
+		
+		# Use the current scene name from the global singleton
+		var current_scene_name = SceneManager.current_scene_name
+		
+		match current_scene_name:
+			"game":
+				selected_lines = lines
+			"level1":
+				selected_lines = lines2
+			_:
+				selected_lines = ["I don't know where we are!"]
+
+		# Start the dialogue with the selected lines
+		DialogManager.start_dialog(dialogue.position, selected_lines)
