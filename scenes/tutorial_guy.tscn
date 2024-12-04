@@ -1,0 +1,97 @@
+[gd_scene load_steps=13 format=3 uid="uid://dvua1c6pvshkm"]
+
+[ext_resource type="Script" path="res://scripts/tutorial_guy.gd" id="1_6ds7h"]
+[ext_resource type="Texture2D" uid="uid://r4h4hsmd63s4" path="res://art/enemies/Hell Bot DARK/idle 92x36.png" id="1_r5eao"]
+[ext_resource type="PackedScene" uid="uid://57ko1iqeadw2" path="res://dialogues/dialogue.tscn" id="3_4i833"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiadm"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 0, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0t2o"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 36, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o7sr"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 72, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04ldj"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 108, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylg3g"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 144, 92, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch5k0"]
+atlas = ExtResource("1_r5eao")
+region = Rect2(0, 180, 92, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trcxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yiadm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0t2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o7sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04ldj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylg3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ch5k0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjo5m"]
+size = Vector2(16, 25.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cnm2l"]
+radius = 65.0077
+
+[node name="TutorialGuy" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_6ds7h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(25, -17)
+sprite_frames = SubResource("SpriteFrames_trcxj")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.954166
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12.625)
+shape = SubResource("RectangleShape2D_hjo5m")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cnm2l")
+
+[node name="Dialogue" parent="." instance=ExtResource("3_4i833")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -49.0
+offset_right = -81.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+d_file = "res://dialogues/json/TutChat.json"

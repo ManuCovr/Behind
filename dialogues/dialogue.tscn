@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://57ko1iqeadw2"]
+
+[ext_resource type="Script" path="res://dialogues/TutChat.gd" id="1_2pi58"]
+[ext_resource type="FontFile" uid="uid://cwi773dakccgf" path="res://art/fonts/Renogare-Regular.otf" id="1_5v3tq"]
+
+[node name="Dialogue" type="MarginContainer"]
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 27.0
+offset_bottom = 30.0
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_2pi58")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="chat" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_5v3tq")
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

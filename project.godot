@@ -23,6 +23,7 @@ buses/default_bus_layout="res://bus/default_bus_layout.tres"
 [autoload]
 
 HitStopManager="*res://scripts/HitStopManager.gd"
+DialogManager="*res://singleton/DialogManager.gd"
 
 [display]
 
@@ -71,14 +72,9 @@ dash={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
-save={
+interact={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
-]
-}
-restore={
-"deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"location":0,"echo":false,"script":null)
 ]
 }
 
@@ -87,6 +83,7 @@ restore={
 2d_physics/layer_1="player"
 2d_physics/layer_2="mobs"
 2d_physics/layer_3="world"
+2d_physics/layer_4="npc"
 
 [physics]
 
