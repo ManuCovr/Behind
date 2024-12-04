@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var decay : float = 0.8
+@export var decay : float = 0.5
 @export var max_offset : Vector2 = Vector2(80, 60)
 @export var max_roll : float = 0.1
 @export var follow_node : Node2D
@@ -8,10 +8,6 @@ extends Camera2D
 
 var trauma : float  = 0.0
 var trauma_power : int  = 2
-
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
-		#add_trauma(0.4)
 
 func _ready() -> void:
 	randomize()

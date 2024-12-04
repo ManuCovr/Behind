@@ -30,10 +30,10 @@ var was_on_air : bool = false
 var can_dust : bool = true
 var dash_direction = Vector2.ZERO
 
+
 const acc = 600
 const dashspeed = 420
 const dashlenght = 0.15
-
 
 
 func _physics_process(delta: float) -> void:
@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		dash.start_dash(dashlenght)
 		velocity.x = (direction.x if direction.x != 0 else marker_2d.scale.x) * dashspeed
 		dash.can_dash = false
-		camera_2d.add_trauma(0.3) 
+		camera_2d.add_trauma(0.25) 
 	if dash.is_dashing():
 		hitbox.disabled = false
 		velocity.x = sign(velocity.x) * dashspeed
