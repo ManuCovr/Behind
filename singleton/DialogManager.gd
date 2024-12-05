@@ -39,16 +39,32 @@ func _on_text_box_finished_displaying():
 	
 	# Ensure the dialogue ends cleanly
 	if current_line_index >= dialogue_lines.size():
-		text_box.queue_free()
+		if text_box and text_box.is_inside_tree():
+			text_box.queue_free()
+		text_box = null
+		is_dialog_active = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and is_dialog_active and can_advance_line:
-		text_box.queue_free()
+	if not is_dialog_active or not text_box:
+		return  # Exit early if there's no active dialogue or text box
+
+	if event.is_action_pressed("interact") and can_advance_line:
+		if text_box and text_box.is_inside_tree():
+			text_box.queue_free()
+		text_box = null
 		current_line_index += 1
-		
+
 		if current_line_index >= dialogue_lines.size():
 			is_dialog_active = false
 			current_line_index = 0
 			return
-		
 		_show_text_box()
+
+func reset_dialog():
+	if text_box and text_box.is_inside_tree():
+		text_box.queue_free()
+	text_box = null
+	dialogue_lines = []
+	current_line_index = 0
+	is_dialog_active = false
+	can_advance_line = false

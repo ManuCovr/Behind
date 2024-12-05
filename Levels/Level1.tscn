@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://rt4tniy1jrn3"]
+[gd_scene load_steps=73 format=4 uid="uid://rt4tniy1jrn3"]
 
 [ext_resource type="Script" path="res://Levels/Scripts/level_1.gd" id="1_16yvr"]
 [ext_resource type="Texture2D" uid="uid://chu5w7s3880fw" path="res://art/backgrounds/background.png" id="1_ow3ck"]
@@ -15,13 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://he214op6kwaa" path="res://art/backgrounds/pillars.png" id="11_5xveq"]
 [ext_resource type="Texture2D" uid="uid://1vagydv7xjmk" path="res://art/tileset/Tileset.png" id="12_hvl81"]
 [ext_resource type="PackedScene" uid="uid://dk0ov7rhpcuie" path="res://scenes/player.tscn" id="13_xh45c"]
-[ext_resource type="PackedScene" uid="uid://vr1qfelhenn0" path="res://scenes/camera_2d.tscn" id="14_5ss8d"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="15_d2pq6"]
 [ext_resource type="Script" path="res://scripts/platform.gd" id="16_15lrc"]
 [ext_resource type="PackedScene" uid="uid://chv83lkbxuac5" path="res://scenes/kill_zone.tscn" id="17_jv0sb"]
 [ext_resource type="Script" path="res://Levels/Scripts/level_won1.gd" id="18_jdsr2"]
 [ext_resource type="Script" path="res://scripts/tutorial_guy.gd" id="19_duqk5"]
 [ext_resource type="Texture2D" uid="uid://r4h4hsmd63s4" path="res://art/enemies/Hell Bot DARK/idle 92x36.png" id="20_v1t7p"]
 [ext_resource type="PackedScene" uid="uid://57ko1iqeadw2" path="res://dialogues/dialogue.tscn" id="21_th8rk"]
+[ext_resource type="FontFile" uid="uid://cwi773dakccgf" path="res://art/fonts/Renogare-Regular.otf" id="23_nkx67"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uth40"]
 texture = ExtResource("1_ow3ck")
@@ -2782,9 +2783,24 @@ process_mode = 3
 z_index = 5
 position = Vector2(-1, -8)
 
-[node name="Camera2D" parent="Player" node_paths=PackedStringArray("follow_node") instance=ExtResource("14_5ss8d")]
+[node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("follow_node")]
 position = Vector2(1, -21)
+offset = Vector2(0, -10)
 zoom = Vector2(5, 5)
+process_callback = 0
+limit_left = -110
+limit_top = -150
+limit_right = 333
+limit_bottom = 90
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_right_margin = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("15_d2pq6")
 decay = 0.6
 max_offset = Vector2(80, 40)
 follow_node = NodePath("..")
@@ -2851,7 +2867,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
 [node name="TutorialGuy" type="CharacterBody2D" parent="."]
-position = Vector2(-61, 0)
+position = Vector2(-62.1221, 0.301075)
 collision_layer = 8
 script = ExtResource("19_duqk5")
 
@@ -2878,14 +2894,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -66.0
-offset_top = -41.0
-offset_right = -49.0
-offset_bottom = 13.0
+offset_left = -90.3068
+offset_top = -45.2171
+offset_right = -73.3068
+offset_bottom = 556.783
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.05, 0.05)
 size_flags_horizontal = 4
 d_file = "res://dialogues/json/TutChat.json"
+
+[node name="Press" type="Label" parent="TutorialGuy"]
+modulate = Color(1, 1, 1, 0.519)
+offset_left = -14.0
+offset_top = -34.0
+offset_right = 548.0
+offset_bottom = 26.0
+scale = Vector2(0.05, 0.05)
+theme_override_fonts/font = ExtResource("23_nkx67")
+theme_override_font_sizes/font_size = 50
+text = "Press [E] to interact..."
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Platform Node/Platform/Area2D" to="Platform Node/Platform" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Platform Node/Platform/Area2D" to="Platform Node/Platform" method="_on_area_2d_body_exited"]

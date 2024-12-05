@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvua1c6pvshkm"]
+[gd_scene load_steps=14 format=3 uid="uid://dvua1c6pvshkm"]
 
 [ext_resource type="Script" path="res://scripts/tutorial_guy.gd" id="1_6ds7h"]
 [ext_resource type="Texture2D" uid="uid://r4h4hsmd63s4" path="res://art/enemies/Hell Bot DARK/idle 92x36.png" id="1_r5eao"]
 [ext_resource type="PackedScene" uid="uid://57ko1iqeadw2" path="res://dialogues/dialogue.tscn" id="3_4i833"]
+[ext_resource type="FontFile" uid="uid://cwi773dakccgf" path="res://art/fonts/Renogare-Regular.otf" id="4_chp4q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yiadm"]
 atlas = ExtResource("1_r5eao")
@@ -87,11 +88,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -97.0
-offset_top = -44.5
-offset_right = -80.0
-offset_bottom = 9.5
+offset_left = -110.0
+offset_top = -46.0
+offset_right = -93.0
+offset_bottom = 556.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.05, 0.05)
 size_flags_horizontal = 4
 d_file = "res://dialogues/json/TutChat.json"
+
+[node name="Press" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.519)
+offset_left = -14.0
+offset_top = -34.0
+offset_right = 548.0
+offset_bottom = 26.0
+scale = Vector2(0.05, 0.05)
+theme_override_fonts/font = ExtResource("4_chp4q")
+theme_override_font_sizes/font_size = 50
+text = "Press [E] to interact..."
+vertical_alignment = 1

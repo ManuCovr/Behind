@@ -29,4 +29,5 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if im_here and anim_name == "fade_out":
-		get_tree().change_scene_to_file("res://Levels/Level3.tscn")
+		get_tree().change_scene_to_file("res://Levels/Level2.tscn")
+		DialogManager.reset_dialog()

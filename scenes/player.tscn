@@ -415,6 +415,36 @@ script = ExtResource("9_j73ts")
 position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_csav5")
 
+[node name="raycast" type="Node" parent="."]
+
+[node name="RayCastRight1" type="RayCast2D" parent="raycast"]
+position = Vector2(0, -11)
+target_position = Vector2(10, 0)
+collision_mask = 5
+
+[node name="RayCastRight4" type="RayCast2D" parent="raycast"]
+position = Vector2(0, -23)
+target_position = Vector2(10, 0)
+collision_mask = 5
+
+[node name="RayCastRight5" type="RayCast2D" parent="raycast"]
+target_position = Vector2(10, 0)
+collision_mask = 5
+
+[node name="RayCastLeft1" type="RayCast2D" parent="raycast"]
+target_position = Vector2(-10, 0)
+collision_mask = 5
+
+[node name="RayCastLeft2" type="RayCast2D" parent="raycast"]
+position = Vector2(0, -11)
+target_position = Vector2(-10, 0)
+collision_mask = 5
+
+[node name="RayCastLeft3" type="RayCast2D" parent="raycast"]
+position = Vector2(0, -23)
+target_position = Vector2(-10, 0)
+collision_mask = 5
+
 [connection signal="finished" from="dash_particles" to="dash_particles" method="_on_finished"]
 [connection signal="finished" from="GhostEffect" to="GhostEffect" method="_on_finished"]
 [connection signal="animation_finished" from="Marker2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=59 format=4 uid="uid://cduqdrwyp5vgq"]
+[gd_scene load_steps=60 format=4 uid="uid://cduqdrwyp5vgq"]
 
 [ext_resource type="Texture2D" uid="uid://chu5w7s3880fw" path="res://art/backgrounds/background.png" id="1_7hn2d"]
+[ext_resource type="Script" path="res://Levels/Scripts/level_3.gd" id="1_uhxhm"]
 [ext_resource type="Texture2D" uid="uid://b6qsy1vus816f" path="res://art/tileset/DARK Edition Tileset No background.png" id="2_1qtww"]
 [ext_resource type="Texture2D" uid="uid://donmnmu5on7s4" path="res://art/tileset/DARK Edition Tileset with background.png" id="3_vom0c"]
 [ext_resource type="Texture2D" uid="uid://cyak3q0jls8av" path="res://art/backgrounds/Layer02.png" id="4_f86fw"]
@@ -13,11 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://he214op6kwaa" path="res://art/backgrounds/pillars.png" id="11_7134p"]
 [ext_resource type="Texture2D" uid="uid://1vagydv7xjmk" path="res://art/tileset/Tileset.png" id="12_whxov"]
 [ext_resource type="PackedScene" uid="uid://dk0ov7rhpcuie" path="res://scenes/player.tscn" id="13_baitg"]
-[ext_resource type="PackedScene" uid="uid://vr1qfelhenn0" path="res://scenes/camera_2d.tscn" id="14_unvtv"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="15_njwgk"]
 [ext_resource type="PackedScene" uid="uid://bv1vff4gbi0na" path="res://scenes/platform.tscn" id="15_oib4t"]
 [ext_resource type="Script" path="res://scripts/platform.gd" id="16_t4vvx"]
 [ext_resource type="PackedScene" uid="uid://chv83lkbxuac5" path="res://scenes/kill_zone.tscn" id="17_k8gh6"]
-[ext_resource type="Script" path="res://Levels/Scripts/level_won1.gd" id="18_mu378"]
+[ext_resource type="Script" path="res://Levels/Scripts/level_won3.gd" id="19_xw5rh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uth40"]
 texture = ExtResource("1_7hn2d")
@@ -2639,6 +2640,7 @@ _data = {
 
 [node name="Level3" type="Node2D"]
 process_mode = 1
+script = ExtResource("1_uhxhm")
 
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color(0.874, 0.9154, 0.92, 1)
@@ -2721,9 +2723,24 @@ process_mode = 3
 z_index = 5
 position = Vector2(-1, -8)
 
-[node name="Camera2D" parent="Player" node_paths=PackedStringArray("follow_node") instance=ExtResource("14_unvtv")]
+[node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("follow_node")]
 position = Vector2(1, -21)
+offset = Vector2(0, -10)
 zoom = Vector2(5, 5)
+process_callback = 0
+limit_left = -139
+limit_top = -140
+limit_right = 372
+limit_bottom = 100
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_right_margin = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("15_njwgk")
 decay = 0.6
 max_offset = Vector2(80, 40)
 follow_node = NodePath("..")
@@ -2765,7 +2782,7 @@ environment = SubResource("Environment_c8sdc")
 [node name="LevelWon" type="Area2D" parent="."]
 position = Vector2(27, 29)
 collision_layer = 4
-script = ExtResource("18_mu378")
+script = ExtResource("19_xw5rh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelWon"]
 position = Vector2(318, -170)

@@ -3,10 +3,18 @@ extends CharacterBody2D
 @export var jump_buffer_buffer : float = 0.1 
 @export var RunSpeed : float = 130.0
 @export var JUMP_VELOCITY : float = -220.0
-@export var wall_slide_speed : float = 1400
 @export var run_accel = 1000
 @export var gravity_multiplyer : float = 1.5
 @export var dash_delay : float = 0.7
+@export var wall_slide_speed : float = 1400
+@export var wall_side_grab_speed = 100
+
+@onready var ray_cast_right_1: RayCast2D = $raycast/RayCastRight1
+@onready var ray_cast_right_4: RayCast2D = $raycast/RayCastRight4
+@onready var ray_cast_right_5: RayCast2D = $raycast/RayCastRight5
+@onready var ray_cast_left_1: RayCast2D = $raycast/RayCastLeft1
+@onready var ray_cast_left_2: RayCast2D = $raycast/RayCastLeft2
+@onready var ray_cast_left_3: RayCast2D = $raycast/RayCastLeft3
 
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var ghost_effect: GPUParticles2D = $GhostEffect
@@ -29,7 +37,9 @@ var direction : Vector2 = Vector2.ZERO
 var was_on_air : bool = false
 var can_dust : bool = true
 var dash_direction = Vector2.ZERO
-
+var on_wall = false
+var wall_direction = 0
+var wall_grab = false
 
 const acc = 600
 const dashspeed = 420
@@ -37,7 +47,6 @@ const dashlenght = 0.15
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravity_multiplyer
 		was_on_air = true
