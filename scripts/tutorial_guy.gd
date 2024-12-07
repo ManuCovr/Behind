@@ -6,25 +6,8 @@ extends CharacterBody2D
 
 const lines: Array[String] = [
 	"...",
-	"Oh hey there, 
-	I didn't see you.",
-	"I'm assuming you're not 
-	from around here...",
-	"I'm Mob, by the way.",
-	"...",
-	"Oh, where are you? 
-	It's a long story, 
-	I hope you have time.",
-	"World went kaboom, desolated land,
-	blah, blah blah...",
-	"Huh. Shorter than I remembered.",
-	"Anyways, if you want any chance 
-	at survival, you gotta get to that platform 
-	up there.",
-	"Try using A and D to move 
-	left and right. OH AND SPACE TO JUMP",
+	"I have AIDS",
 ]
-
 
 const lines2: Array[String] = [
 	"You made it!",

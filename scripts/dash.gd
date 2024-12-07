@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var timer: Timer = $DashTimer
-const dash_delay = 2
+const dash_delay = 1
 var can_dash = true
 var player_ref : Node = null
 

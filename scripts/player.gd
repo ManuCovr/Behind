@@ -1,22 +1,20 @@
 extends CharacterBody2D
+class_name Player
+
 
 @export var jump_buffer_buffer : float = 0.1 
-@export var RunSpeed : float = 130.0
+@export var RunSpeed : float = 120.0
 @export var JUMP_VELOCITY : float = -220.0
-@export var run_accel = 1000
 @export var gravity_multiplyer : float = 1.5
 @export var dash_delay : float = 0.7
 @export var wall_slide_speed : float = 1400
 @export var wall_side_grab_speed = 100
+@export var camera_limit_left = -150
+@export var camera_limit_right = 200
+@export var cam = 1000
 
-@onready var ray_cast_right_1: RayCast2D = $raycast/RayCastRight1
-@onready var ray_cast_right_4: RayCast2D = $raycast/RayCastRight4
-@onready var ray_cast_right_5: RayCast2D = $raycast/RayCastRight5
-@onready var ray_cast_left_1: RayCast2D = $raycast/RayCastLeft1
-@onready var ray_cast_left_2: RayCast2D = $raycast/RayCastLeft2
-@onready var ray_cast_left_3: RayCast2D = $raycast/RayCastLeft3
+@onready var ghost_effect_2: GPUParticles2D = $GhostEffect2
 
-@onready var camera_2d: Camera2D = $Camera2D
 @onready var ghost_effect: GPUParticles2D = $GhostEffect
 @onready var dash_timer: Timer = $Dash/DashTimer
 @onready var dash_particles: GPUParticles2D = $dash_particles
@@ -24,10 +22,14 @@ extends CharacterBody2D
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var marker_2d: Marker2D = $Marker2D
 @onready var sprite: AnimatedSprite2D = $Marker2D/AnimatedSprite2D
+@onready var second_one: AnimatedSprite2D = $Marker2D/SecondOne
 @onready var jump_buffer_timer: Timer = $JumpBufferTimer
 @onready var dash: Node2D = $Dash
-@onready var hitbox: CollisionShape2D = $hitbox/CollisionShape2D
+@onready var camera_2d: Camera2D = $"../Camera2D"
 
+
+
+var playing_jump_start: bool = false  # Lock to prioritize jump_start animation
 var can_jump : bool = true
 var has_wall_jumped : bool = false
 var doWallJump : bool = false
@@ -41,13 +43,21 @@ var on_wall = false
 var wall_direction = 0
 var wall_grab = false
 
-const acc = 600
+const PUSH = 300
+signal change_camera_pos
 const dashspeed = 420
-const dashlenght = 0.15
+const dashlenght = 0.2
+const dashspeed_ver = 250
 
+
+func _ready() -> void:
+	GameManager.player = self
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
+	if is_on_floor():
+		if was_on_air:
+			was_on_air = false
+	else:
 		velocity += get_gravity() * delta * gravity_multiplyer
 		was_on_air = true
 	# Handle Jumping
@@ -60,40 +70,106 @@ func _physics_process(delta: float) -> void:
 			# Activate jump buffer if in the air
 			jump_buffer = true
 			jump_buffer_timer.start()
-
-
+	
 	# Wall Slide
 	if is_on_wall_only() and !Input.is_action_just_pressed("jump") and !doWallJump:
 		wall_slide(delta)
 	direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 	#direction.y = sign(Input.get_action_strength("down") - Input.get_action_strength("up"))
-	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and direction.x != 0 and dash.can_dash:
-		dash_particles.emitting = true
-		ghost_effect.emitting = true
+	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and dash.can_dash:
+	# Get directional input
+		var input_direction = Vector2(
+			Input.get_action_strength("right") - Input.get_action_strength("left"),
+			Input.get_action_strength("down") - Input.get_action_strength("up")
+		)
+
+	# Normalize direction or default to horizontal facing direction
+		if input_direction.x != 0:
+		# Horizontal dash (left/right)
+			dash_direction = Vector2(input_direction.x, 0)
+		elif input_direction.y != 0:
+		# Vertical dash (up/down)
+			dash_direction = Vector2(0, input_direction.y)
+		else:
+		# Default to facing direction (horizontal)
+			dash_direction = Vector2(marker_2d.scale.x, 0)
+	
+	# Determine animation and dash effects based on direction
+		if abs(dash_direction.y) > abs(dash_direction.x):
+		# Dash is primarily vertical (up or down)
+			second_one.play("jump_start")
+			second_one.scale = Vector2(0.7, 1.3)  # Scale for jump effect
+		# Emit particles for vertical dash
+			ghost_effect_2.emitting = true
+			dash_particles.emitting = false
+			ghost_effect.emitting = false
+		else:
+		# Dash is horizontal (left or right)
+			second_one.play("dash")
+			second_one.scale = Vector2(1.5, 0.7)  # Horizontal dash effect
+		# Emit particles for horizontal dash
+			ghost_effect_2.emitting = false
+			dash_particles.emitting = true
+			ghost_effect.emitting = true
+
+	# Start the dash action
 		dash.start_dash(dashlenght)
-		velocity.x = (direction.x if direction.x != 0 else marker_2d.scale.x) * dashspeed
 		dash.can_dash = false
-		camera_2d.add_trauma(0.25) 
+
+	# Apply camera trauma explicitly at dash start
+		camera_2d.add_trauma(0.25)
+
+# Handle dash behavior when active
 	if dash.is_dashing():
-		hitbox.disabled = false
-		velocity.x = sign(velocity.x) * dashspeed
+		if abs(dash_direction.y) > abs(dash_direction.x):
+		# Primarily vertical dash -> use vertical speed
+			velocity = dash_direction * dashspeed_ver
+		else:
+		# Horizontal dash -> use horizontal speed
+			velocity = dash_direction * dashspeed
+
+
+
 	else:
 		direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 		dash_particles.emitting = false
 		ghost_effect.emitting = false
-		hitbox.disabled = true
-		if direction and !doWallJump:
-			velocity.x = clamp(velocity.x + direction.x * acc * delta, -RunSpeed, RunSpeed)
-		elif not doWallJump:
-			velocity.x = move_toward(velocity.x, 0, run_accel * delta)
-
-	# Move and Slide
-	var was_on_floor = is_on_floor()
+		ghost_effect_2.emitting = false
+		if direction.x != 0 and !doWallJump:
+			velocity.x = direction.x * RunSpeed
+		elif !doWallJump:
+			velocity.x = 0
 	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+	
+	# Debugging the collision object
+		if collision == null:
+			print("No collision data for index: ", i)
+		continue
+	
+		if collision.collider == null:
+			print("No collider found for collision at index: ", i)
+		continue
+
+	# Check if the collider is a MovableBlock
+		if collision.collider is MovableBlock:
+			print("Applying impulse to MovableBlock at index: ", i)
+			collision.collider.apply_central_impulse(-collision.normal * PUSH)
+		else:
+			print("Collider is not a MovableBlock. It is: ", collision.collider.get_class())
+
+
+# Move and Slide
+	var was_on_floor = is_on_floor()
+
+	
+	#move_camera()
 	move_and_slide()
 	update_animation()
 	update_facing_direction()
-
+	second_one.scale.x = move_toward(second_one.scale.x, 1, 1 * delta)
+	second_one.scale.y = move_toward(second_one.scale.y, 1, 1 * delta)
 	# Touched Ground
 	if !was_on_floor and is_on_floor():
 		reset_wall_jump()
@@ -107,6 +183,8 @@ func _physics_process(delta: float) -> void:
 		has_wall_jumped = false
 	if was_on_floor and !is_on_floor():
 		coyote_timer.start()
+	if position.y <= 0:
+		die()
 
 func _on_enemy_killed():
 	# Reset dash and allow a small window to dash again
@@ -123,28 +201,43 @@ func wall_jump():
 	has_wall_jumped = true  # Prevent multiple wall jumps
 	can_jump = false
 	doWallJump = true
+	playing_jump_start = true  # Lock animation to jump_start
 	$WallJumpTimer.start()
-	sprite.play("jump_start")  # Play wall jump animation
+	sprite.visible = false
+	second_one.visible = true
+	second_one.play("jump_start")  # Play wall jump animation
+
 
 # Wall Slide Implementation
 func wall_slide(delta: float):
 	velocity.y = min(velocity.y, wall_slide_speed * delta)  # Apply slide speed cap
-	sprite.play("wallslide")  # Play wall slide animation if it exists
+	sprite.visible = false
+	second_one.visible = true
+	second_one.play("wallslide")  # Play wall slide animation if it exists
 
 # Reset Wall Jump State
 func reset_wall_jump():
 	doWallJump = false
 	has_wall_jumped = false
+	playing_jump_start = false
+	update_animation()
 
 func jump():
 	if can_jump and (is_on_floor() || !coyote_timer.is_stopped()):
 		velocity.y = JUMP_VELOCITY
-		sprite.play("jump_start")
+		sprite.visible = false
+		second_one.visible = true
+		second_one.play("jump_start")
+		second_one.scale = Vector2(0.7, 1.3)
+		playing_jump_start = true
 		can_jump = false
 		reset_jump_buffer()
 	elif was_on_air and jump_buffer:
 		velocity.y = JUMP_VELOCITY
-		sprite.play("jump_start")
+		sprite.visible = false
+		second_one.visible = true
+		second_one.play("jump_start")
+		playing_jump_start = true
 		can_jump = false
 		reset_jump_buffer()
 
@@ -154,36 +247,70 @@ func reset_jump_buffer():
 	
 func _on_wall_jump_timer_timeout() -> void:
 	reset_wall_jump()
-
+	playing_jump_start = false
+	
 func _on_jump_buffer_timer_timeout():
 	reset_jump_buffer()
 
 func update_animation():
-	if not animation_locked:
-		#if dash.is_dashing():
-			#sprite.play("dash")
-		if !is_on_floor() and !is_on_wall_only():
-			sprite.play("jump_air")
-		elif is_on_wall_only() and !doWallJump:
-			sprite.play("wallslide")  # Slide animation if on wall but not jumping
-		elif direction.x != 0:
-			sprite.play("run")
+	# Allow interruptions of "jump_start" for wallslide or dash
+	if playing_jump_start:
+		# Ensure "jump_start" finishes playing before switching to other animations
+		if second_one.animation == "jump_start" and !second_one.is_playing():
+			playing_jump_start = false
 		else:
-			sprite.play("idle")
+			return  # Do not transition if "jump_start" is still playing
+
+	# Handle dash animation
+	if dash.is_dashing():
+		sprite.visible = false
+		second_one.visible = true
+		if second_one.animation != "dash":
+			second_one.play("dash")
+		return
+	
+	# Handle wallslide animation
+	if is_on_wall_only() and !doWallJump:
+		sprite.visible = false
+		second_one.visible = true
+		if second_one.animation != "wallslide":
+			second_one.play("wallslide")
+		return
+
+	# Handle jump animation when airborne
+	if !is_on_floor():
+		sprite.visible = false
+		second_one.visible = true
+		if second_one.animation != "jump_air":
+			second_one.play("jump_air")
+		return
+
+	# Handle running animation when moving on the ground	
+	if direction.x != 0:
+		sprite.visible = false
+		second_one.visible = true
+		if second_one.animation != "run":
+			second_one.play("run")
+		return
+
+	# Handle idle animation as a fallback
+	sprite.visible = true
+	second_one.visible = false
+	if sprite.animation != "idle":
+		sprite.play("idle")
+
 
 func update_facing_direction():
 	if direction.x > 0:
 		marker_2d.scale.x = 1
 		ghost_effect.scale.x = 1
+		if second_one.animation == "wallslide":
+			marker_2d.scale.x = -1
 	elif direction.x < 0:
 		marker_2d.scale.x = -1
 		ghost_effect.scale.x = -1
+		if second_one.animation == "wallslide":
+			marker_2d.scale.x = 1
 
-
-func reset_dash():
-	dash.can_dash = true
-	var redash = get_tree().create_timer(dash_delay)
-	await redash.timeout
-	dash.can_dash = false
-	dash_particles.emitting = false
-	ghost_effect.emitting = false
+func die():
+	GameManager.respawn_player()

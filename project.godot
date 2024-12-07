@@ -25,10 +25,10 @@ buses/default_bus_layout="res://bus/default_bus_layout.tres"
 HitStopManager="*res://scripts/HitStopManager.gd"
 DialogManager="*res://singleton/DialogManager.gd"
 SceneManager="*res://singleton/SceneManager.gd"
+GameManager="*res://singleton/GameManager.gd"
 
 [display]
 
-window/size/mode=4
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/stretch/scale=0.55
@@ -85,6 +85,7 @@ interact={
 2d_physics/layer_2="mobs"
 2d_physics/layer_3="world"
 2d_physics/layer_4="npc"
+2d_physics/layer_5="blocks"
 
 [physics]
 
