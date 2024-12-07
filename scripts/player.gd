@@ -79,45 +79,37 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and dash.can_dash:
 	# Get directional input
 		var input_direction = Vector2(
-			Input.get_action_strength("right") - Input.get_action_strength("left"),
-			Input.get_action_strength("down") - Input.get_action_strength("up")
+		Input.get_action_strength("right") - Input.get_action_strength("left"),
+		Input.get_action_strength("down") - Input.get_action_strength("up")
 		)
 
-	# Normalize direction or default to horizontal facing direction
+	# Determine dash direction
 		if input_direction.x != 0:
-		# Horizontal dash (left/right)
-			dash_direction = Vector2(input_direction.x, 0)
+			dash_direction = Vector2(input_direction.x, 0)  # Horizontal dash
 		elif input_direction.y != 0:
-		# Vertical dash (up/down)
-			dash_direction = Vector2(0, input_direction.y)
+			dash_direction = Vector2(0, input_direction.y)  # Vertical dash
 		else:
-		# Default to facing direction (horizontal)
-			dash_direction = Vector2(marker_2d.scale.x, 0)
-	
-	# Determine animation and dash effects based on direction
-		if abs(dash_direction.y) > abs(dash_direction.x):
-		# Dash is primarily vertical (up or down)
-			second_one.play("jump_start")
-			second_one.scale = Vector2(0.7, 1.3)  # Scale for jump effect
-		# Emit particles for vertical dash
-			ghost_effect_2.emitting = true
-			dash_particles.emitting = false
-			ghost_effect.emitting = false
-		else:
-		# Dash is horizontal (left or right)
-			second_one.play("dash")
-			second_one.scale = Vector2(1.5, 0.7)  # Horizontal dash effect
-		# Emit particles for horizontal dash
-			ghost_effect_2.emitting = false
-			dash_particles.emitting = true
-			ghost_effect.emitting = true
+			dash_direction = Vector2(marker_2d.scale.x, 0)  # Default to facing direction
 
-	# Start the dash action
+	# Set animation and lock it
+		if abs(dash_direction.y) > abs(dash_direction.x):  # Vertical dash
+			playing_jump_start = true
+			second_one.play("jump_start")
+			second_one.scale = Vector2(0.7, 1.3)
+		else:  # Horizontal dash
+			second_one.play("dash")
+			second_one.scale = Vector2(1.5, 0.7)
+
+	# Emit particles
+		ghost_effect_2.emitting = abs(dash_direction.y) > abs(dash_direction.x)
+		dash_particles.emitting = not ghost_effect_2.emitting
+		ghost_effect.emitting = not ghost_effect_2.emitting
+
+	# Start dash
 		dash.start_dash(dashlenght)
 		dash.can_dash = false
-
-	# Apply camera trauma explicitly at dash start
 		camera_2d.add_trauma(0.25)
+
 
 # Handle dash behavior when active
 	if dash.is_dashing():
@@ -253,13 +245,13 @@ func _on_jump_buffer_timer_timeout():
 	reset_jump_buffer()
 
 func update_animation():
-	# Allow interruptions of "jump_start" for wallslide or dash
+	# Prioritize locked animations
 	if playing_jump_start:
-		# Ensure "jump_start" finishes playing before switching to other animations
+		# Ensure "jump_start" finishes playing before transitioning
 		if second_one.animation == "jump_start" and !second_one.is_playing():
-			playing_jump_start = false
+			playing_jump_start = false  # Unlock animation
 		else:
-			return  # Do not transition if "jump_start" is still playing
+			return  # Prevent overriding during dash/jump_start
 
 	# Handle dash animation
 	if dash.is_dashing():
@@ -268,7 +260,7 @@ func update_animation():
 		if second_one.animation != "dash":
 			second_one.play("dash")
 		return
-	
+
 	# Handle wallslide animation
 	if is_on_wall_only() and !doWallJump:
 		sprite.visible = false
@@ -277,7 +269,7 @@ func update_animation():
 			second_one.play("wallslide")
 		return
 
-	# Handle jump animation when airborne
+	# Handle airborne animation
 	if !is_on_floor():
 		sprite.visible = false
 		second_one.visible = true
@@ -285,7 +277,7 @@ func update_animation():
 			second_one.play("jump_air")
 		return
 
-	# Handle running animation when moving on the ground	
+	# Handle running animation
 	if direction.x != 0:
 		sprite.visible = false
 		second_one.visible = true
@@ -293,11 +285,12 @@ func update_animation():
 			second_one.play("run")
 		return
 
-	# Handle idle animation as a fallback
+	# Fallback to idle animation
 	sprite.visible = true
 	second_one.visible = false
 	if sprite.animation != "idle":
 		sprite.play("idle")
+
 
 
 func update_facing_direction():
