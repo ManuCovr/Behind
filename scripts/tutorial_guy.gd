@@ -6,7 +6,11 @@ extends CharacterBody2D
 
 const lines: Array[String] = [
 	"...",
-	"I have AIDS",
+	"Oh hey!
+	Who are you...?",
+	"...",
+	"Ah Kodai, cool name.
+	I'm Mob by the way.",
 ]
 
 const lines2: Array[String] = [

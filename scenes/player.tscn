@@ -466,7 +466,7 @@ radius = 4.0
 height = 17.2001
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 12
+collision_mask = 28
 script = ExtResource("1_5xfks")
 dash_delay = 0.0
 

@@ -18,9 +18,10 @@ func is_dashing() -> bool:
 	return timer.time_left > 0
 
 func end_dash():
-	var new_timer = get_tree().create_timer(dash_delay)
-	await new_timer.timeout
-	can_dash = true
+	if not can_dash:  # Only reset if it has been used
+		var new_timer = get_tree().create_timer(dash_delay)
+		await new_timer.timeout
+		can_dash = true
 
 
 func _on_dash_timer_timeout() -> void:

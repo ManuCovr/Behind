@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1vagydv7xjmk"
-path="res://.godot/imported/Tileset.png-b82913552fd59c9c2fd078327814b45d.ctex"
+uid="uid://epowg8li5tju"
+path="res://.godot/imported/40.png-a0fa9f9235feb3732465aff07f7aed1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/tileset/Tileset.png"
-dest_files=["res://.godot/imported/Tileset.png-b82913552fd59c9c2fd078327814b45d.ctex"]
+source_file="res://art/orbs and stuff/Effects Pack 14/5/40.png"
+dest_files=["res://.godot/imported/40.png-a0fa9f9235feb3732465aff07f7aed1f.ctex"]
 
 [params]
 
