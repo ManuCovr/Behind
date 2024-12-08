@@ -2,10 +2,12 @@ extends Node2D
 @onready var node_2d: GPUParticles2D = $Node2D
 @onready var timer: Timer = $Timer
 @onready var camera_2d: Camera2D = $"../Camera2D"
+@onready var death: AudioStreamPlayer2D = $death
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Player:
+		death.play()
 		var player = area.get_parent()
 		
 		# Disable the player's movement and interactions

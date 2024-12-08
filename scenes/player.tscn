@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://dk0ov7rhpcuie"]
+[gd_scene load_steps=102 format=3 uid="uid://dk0ov7rhpcuie"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_5xfks"]
 [ext_resource type="Script" path="res://scripts/dash_particles.gd" id="4_qa1ya"]
@@ -88,6 +88,7 @@
 [ext_resource type="Texture2D" uid="uid://dymacfy0rn16d" path="res://art/another/Light/wall_grab/wall_grab10.png" id="71_674va"]
 [ext_resource type="Texture2D" uid="uid://b7k5hyb7xpuxo" path="res://art/another/Light/wall_grab/wall_grab11.png" id="72_yckaw"]
 [ext_resource type="Texture2D" uid="uid://c40umf61fueo1" path="res://art/another/Light/wall_grab/wall_grab12.png" id="73_hak44"]
+[ext_resource type="AudioStream" uid="uid://di7s8nyffd5vv" path="res://art/music and sounds/zapsplat_foley_wood_bambo_swoosh_through_air_001 (mp3cut.net).wav" id="89_inik2"]
 
 [sub_resource type="Curve" id="Curve_875jv"]
 _data = [Vector2(0.00576923, 0.546942), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.47937, -3.07048, 0, 0]
@@ -555,6 +556,9 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(0, -8.70217)
 shape = SubResource("CapsuleShape2D_tllww")
+
+[node name="dashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("89_inik2")
 
 [connection signal="finished" from="dash_particles" to="dash_particles" method="_on_finished"]
 [connection signal="finished" from="GhostEffect" to="GhostEffect" method="_on_finished"]

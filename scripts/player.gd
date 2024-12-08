@@ -14,6 +14,7 @@ class_name Player
 @export var cam = 1000
 
 @onready var ghost_effect_2: GPUParticles2D = $GhostEffect2
+@onready var dash_sound: AudioStreamPlayer2D = $dashSound
 
 @onready var ghost_effect: GPUParticles2D = $GhostEffect
 @onready var dash_timer: Timer = $Dash/DashTimer
@@ -78,6 +79,7 @@ func _physics_process(delta: float) -> void:
 	#direction.y = sign(Input.get_action_strength("down") - Input.get_action_strength("up"))
 	if Input.is_action_just_pressed("dash") and !dash.is_dashing() and dash.can_dash:
 	# Get directional input
+		dash_sound.play()
 		var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")

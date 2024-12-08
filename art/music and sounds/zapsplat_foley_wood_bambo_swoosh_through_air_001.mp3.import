@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwupmxgo6itbw"
+path="res://.godot/imported/zapsplat_foley_wood_bambo_swoosh_through_air_001.mp3-f7d1bb62b1e2d61643e869d936338e9d.mp3str"
+
+[deps]
+
+source_file="res://art/music and sounds/zapsplat_foley_wood_bambo_swoosh_through_air_001.mp3"
+dest_files=["res://.godot/imported/zapsplat_foley_wood_bambo_swoosh_through_air_001.mp3-f7d1bb62b1e2d61643e869d936338e9d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

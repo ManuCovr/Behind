@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://di7s8nyffd5vv"
+path="res://.godot/imported/zapsplat_foley_wood_bambo_swoosh_through_air_001 (mp3cut.net).wav-360ec037c4c36ca5f9e6d9477db0998f.sample"
+
+[deps]
+
+source_file="res://art/music and sounds/zapsplat_foley_wood_bambo_swoosh_through_air_001 (mp3cut.net).wav"
+dest_files=["res://.godot/imported/zapsplat_foley_wood_bambo_swoosh_through_air_001 (mp3cut.net).wav-360ec037c4c36ca5f9e6d9477db0998f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
