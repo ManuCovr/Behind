@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtcv1jrvykcga"]
+[gd_scene load_steps=5 format=3 uid="uid://dtcv1jrvykcga"]
 
 [ext_resource type="Texture2D" uid="uid://dgeufmiaihlgr" path="res://art/tileset/desert-ruins-modified.png" id="1_v888p"]
+[ext_resource type="Script" path="res://Objects/scripts/static_body_2d.gd" id="1_yy0w5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_03067"]
 texture = ExtResource("1_v888p")
@@ -83,9 +84,16 @@ sources/0 = SubResource("TileSetAtlasSource_03067")
 [node name="Node2D" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+script = ExtResource("1_yy0w5")
 
 [node name="TileMap" type="TileMap" parent="StaticBody2D"]
 tile_set = SubResource("TileSet_twkk7")
 format = 2
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="StaticBody2D" method="_on_area_2d_body_entered"]

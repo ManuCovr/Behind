@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			jump_buffer_timer.start()
 	
 	# Wall Slide
-	if is_on_wall_only() and !Input.is_action_just_pressed("jump") and !doWallJump:
+	if is_on_wall_only() and !Input.is_action_just_pressed("jump") and !doWallJump and !dash.is_dashing():
 		wall_slide(delta)
 	direction.x = sign(Input.get_action_strength("right") - Input.get_action_strength("left"))
 	#direction.y = sign(Input.get_action_strength("down") - Input.get_action_strength("up"))
@@ -309,3 +309,9 @@ func update_facing_direction():
 
 func die():
 	GameManager.respawn_player()
+
+func stop_wall_slide():
+	if is_on_wall_only():
+		has_wall_jumped = false
+		wall_grab = false
+		update_animation()  # Reset the animation

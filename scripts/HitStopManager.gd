@@ -17,6 +17,11 @@ func slow_mow():
 	Engine.time_scale = 1
 
 func Dash_slow():
-	Engine.time_scale = 0
-	await get_tree().create_timer(0.05, true, false, true).timeout
+	Engine.time_scale = 0.5
+	await get_tree().create_timer(0.15, true, false, true).timeout
+	Engine.time_scale = 1
+
+func wall_break():
+	Engine.time_scale = 1.5
+	await get_tree().create_timer(0.15, true, false, true).timeout
 	Engine.time_scale = 1
